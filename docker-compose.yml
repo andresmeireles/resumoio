@@ -1,0 +1,22 @@
+services:
+    server:
+        build:
+            context: .
+            dockerfile: docker/server/Dockerfile
+        working_dir: /app
+        volumes:
+            - ./:/app
+        ports:
+            - 8000:8000
+
+    postgres:
+        image: postgres:17.0
+        working_dir: /app
+        volumes:
+            - ./:/app
+        environment:
+            - POSTGRES_USER=${DB_USERNAME}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+            - POSTGRES_DB=${DB_DATABASE}
+        ports:
+            - 6678:5432
